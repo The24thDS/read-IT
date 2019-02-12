@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>read IT</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+    <div class="grid">
+        <div class="titlebar">
+            <h1>read IT</h1>
+            <div class="actions">
+                <i class="far fa-window-minimize"></i>
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="greetings">
+            <h2>Hello, The24thDS!</h2>
+            <h3>Your reading list is below</h3>
+        </div>
+        <div class="list">
+            <label><input type="checkbox"/><a href="#">React ref attribute</a></label>
+        </div>
+    </div>
+    <script>
+        const electron = require('electron')
+        const {ipcRenderer} = electron
+        const close = document.querySelector('.fa-times')
+        const minimize = document.querySelector('.fa-window-minimize')
+        const list = document.querySelector('.list')
+        if(!list.childElementCount)
+        {
+            list.innerHTML = 'Looks like you have nothing to read'
+        }
+        close.addEventListener('click', ()=>{
+            ipcRenderer.send('close')
+        })
+        minimize.addEventListener('click', ()=>{
+            ipcRenderer.send('minimize')
+        })
+    </script>
+</body>
+</html>
