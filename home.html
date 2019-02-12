@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>list IT - Your lists</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="grid">
+        <header>
+            <span>Your personal lists</span>
+            <i class="fas fa-user-circle"></i>
+        </header>
+        <div class="create">
+            <i class="fas fa-plus"></i>
+            <span>Create a new list</span>
+        </div>
+        <div class="grid lists">
+            <div class="list">
+                    <i class="fas fa-list-ul"></i>
+                    <span>Todo list</span>
+            </div>
+            <div class="list">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Shopping list</span>
+            </div>
+            <div class="list">
+                    <i class="far fa-newspaper"></i>
+                    <span>Reading list</span>
+            </div>
+        </div>
+    </div>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
+    <script>
+        const electron = require('electron')
+        const {ipcRenderer} = electron
+        const lists = document.querySelectorAll('.list')
+        lists.forEach(list => {
+            list.addEventListener('click', ()=>{
+                ipcRenderer.send('list-click')
+            })
+        })
+    </script>
+</body>
+</html>

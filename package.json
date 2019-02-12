@@ -1,0 +1,15 @@
+{
+  "name": "readinglist",
+  "version": "1.0.0",
+  "description": "Reading list app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "David Sima",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^4.0.4"
+  }
+}
