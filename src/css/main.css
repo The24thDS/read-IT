@@ -81,8 +81,49 @@ body {
     border-radius: 50%;
     margin-top: -40%;
     z-index: 1;
-    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.5)
+    box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.5);
+    color: var(--main-text);
 }
 .greetings h3{
     padding: 15px 0 60px 0
+}
+
+.list{
+    padding-top: 20px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+.list label{
+    width: 80%;
+    background-color: var(--main-bg);
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    color: var(--main-text);
+    font-size: 14px;
+}
+.list .checkbox{
+    width: 20px;
+    height: 20px;
+    background-color: var(--input-bg);
+    box-sizing: border-box;
+    border: 2px solid var(--input-bg);
+    cursor: pointer;
+    box-shadow: 0 0 0 2px #70707088;
+    margin-right: 10px;
+}
+.list .checkbox.checked{
+    background-color: var(--secondary-bg)
+}
+.list .checkbox.checked+a{
+    text-decoration: line-through
+}
+
+.list a{
+    color: var(--main-text);
+    text-decoration: none
 }

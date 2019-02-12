@@ -19,12 +19,12 @@
             <h3>Your reading list is below</h3>
         </div>
         <div class="list">
-            <label><input type="checkbox"/><a href="#">React ref attribute</a></label>
+            <label><div onclick="checkboxClick(event)" class="checkbox"></div><a onclick="linkClick(event)" href="https://www.youtube.com/watch?v=Mus_vwhTCq0" target="_blank">JavaScript Pro Tips - Code This, NOT That</a></label>
         </div>
     </div>
     <script>
         const electron = require('electron')
-        const {ipcRenderer} = electron
+        const {ipcRenderer, shell} = electron
         const close = document.querySelector('.fa-times')
         const minimize = document.querySelector('.fa-window-minimize')
         const list = document.querySelector('.list')
@@ -38,6 +38,17 @@
         minimize.addEventListener('click', ()=>{
             ipcRenderer.send('minimize')
         })
+        const linkClick = event => {
+            event.preventDefault()
+            shell.openExternal(event.target.attributes.href.value)
+        }
+        const checkboxClick = event => {
+            let opacity = 0.5
+            if(event.target.classList.value.includes('checked')) 
+                opacity = 1
+            event.target.parentElement.style = `opacity: ${opacity}`
+            event.target.classList.toggle('checked')
+        }
     </script>
 </body>
 </html>
