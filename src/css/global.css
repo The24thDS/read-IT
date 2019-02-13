@@ -26,6 +26,7 @@ body {
     background-image: url('../images/background.svg');
     background-size: cover;
     -webkit-user-select: none;
+    overflow: hidden;
 }
 .grid {
     display: grid;
@@ -38,7 +39,7 @@ body {
     align-items: center;
     grid-template-columns: 1fr auto;
     background-color: var(--secondary-bg);
-    z-index: 2;
+    z-index: 10;
 }
 .titlebar h1{
     margin: 0;

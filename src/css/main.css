@@ -1,5 +1,53 @@
 @import 'global.css';
 
+.first-time{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--main-bg);
+    color: var(--form-btn-bg);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    top: 0;
+    left: 0;
+}
+.first-time h1, .first-time h2, .first-time h3{
+    padding: 7px 0
+}
+.first-time input {
+    background-color: var(--input-bg);
+    color: var(--additional-text);
+    font-size: 18px;
+    padding: 5px;
+    border: 0;
+    border-radius: 5px;
+    border: 2px solid var(--input-bg);
+}
+.first-time input:focus {
+    outline: 0;
+    border: 2px solid black;
+}
+.first-time button {
+    cursor: pointer;
+    background-color: var(--form-btn-bg);
+    color: var(--input-bg);
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 10px;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 1s;
+}
+.first-time button:hover{
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 1s;
+}
+
 .add{
     position: absolute;
     width: 50px;
