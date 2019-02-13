@@ -3,7 +3,7 @@ const url = require('url')
 const path = require('path')
 const fs = require('fs')
 
-const {app, BrowserWindow, ipcMain, Menu} = electron
+const {app, BrowserWindow, ipcMain} = electron
 
 let mainWindow, newItemWindow
 const closeApp = () => {
@@ -19,7 +19,7 @@ const startApp = () =>{
         frame: false, 
         show: false
     })
-    //mainWindow.setMenu(null)
+    // mainWindow.setMenu(null)
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname,'/html/home.html'),
         protocol: 'file',
@@ -41,8 +41,6 @@ const openAddWindow = () => {
         height: 300, 
         resizable: false,
         frame: false, 
-        parent: mainWindow, 
-        modal: true, 
         show: false
     })
     newItemWindow.loadURL(url.format({
@@ -63,6 +61,15 @@ app.on('ready', startApp)
 app.on('window-all-closed', closeApp)
 
 // * ipc events/catches
+ipcMain.on('first-time-completed', ()=>{
+    try{
+        const css = fs.openSync('src/css/main.css', 'a')
+        const rule = '\n.first-time{display:none}'
+        fs.appendFileSync(css, rule)
+    } catch(err) {
+        console.log(err)
+    }
+})
 
 ipcMain.on('new-item', openAddWindow)
 

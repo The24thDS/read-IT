@@ -37,7 +37,7 @@ const insertInPage = (item) => {
     list.innerHTML += itemHTML
 }
 
-const addItem = async(data) => {
+const addItem = async(data, insert) => {
     const item = {
         _id: new Date().toISOString(),
         name: data.name,
@@ -46,7 +46,8 @@ const addItem = async(data) => {
     };
     try{
         const response = await db.put(item)
-        insertInPage(item)
+        if(insert===true)
+            insertInPage(item)
     } catch(err) {
         console.log(err)
     }
@@ -64,6 +65,15 @@ const firstTime = () => {
         }
         try{
             const response = await db.put(user)
+            await addItem({
+                name: 'You might want to checkout my GitHub account',
+                url: 'https://github.com/The24thDS'
+            }, false)
+            await addItem({
+                name: 'and leave a star on this project',
+                url: 'https://github.com/The24thDS/read-IT'
+            }, false)
+            ipcRenderer.send('first-time-completed')
             onLoad()
         } catch(err) {
             console.log(err)
@@ -71,10 +81,9 @@ const firstTime = () => {
     })
 }
 const getItems = async() => {
-    const doc = await db.allDocs({include_docs: true, descending: true})
-    doc.rows.forEach(element => {
-        insertInPage(element.doc)
-    })
+    const doc = await db.allDocs({include_docs: true})
+    for(let i=0; i<doc.rows.length-1; i++)
+        insertInPage(doc.rows[i].doc)
 }
 const onLoad = async() => {
     // * check if name is set
@@ -84,6 +93,7 @@ const onLoad = async() => {
             list.innerHTML = 'Looks like you have nothing to read'
         document.querySelector('.first-time').remove()
         document.querySelector('.greetings h2').innerHTML = `Hello, ${name.value}!`
+        getItems()
     } catch(err) {
         if(err.message==='missing')
             firstTime()
@@ -121,5 +131,5 @@ add.addEventListener('click', ()=>{
     ipcRenderer.send('new-item')
 })
 ipcRenderer.on('adding', (event, state)=>{
-    addItem(state)
+    addItem(state, true)
 })
