@@ -1,5 +1,6 @@
 {
   "name": "readinglist",
+  "productName": "read IT",
   "version": "1.0.0",
   "description": "Reading list app",
   "main": "src/main.js",
