@@ -13,10 +13,6 @@
     --additional-text: rgba(46, 64, 87, 0.8);
     --input-bg: #DBFFDE;
     --form-btn-bg: #3423A6;
-    --checkbox-bg: #A6C3E6;
-    --checkbox-done: #24E451;
-    --background-text: rgba(50, 55, 61, 0.2);
-    --new-btn-bg: rgba(219, 255, 222, 0.8);
 }
 body {
     padding: 0;

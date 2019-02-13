@@ -15,11 +15,17 @@
                 <i class="fas fa-times"></i>
             </div>
         </div>
-        <p>item name</p>
-        <input type="text" name="name">
-        <p>url <span>(optional)</span></p>
-        <input type="text" name="url">
-        <button type="submit">Add</button>
+        <div class="grid form">
+            <div class="row">
+                <p>item name</p>
+                <input type="text" name="name">
+            </div>
+            <div class="row">
+                <p>url <span>(optional)</span></p>
+                <input type="text" name="url">
+            </div>
+            <button type="submit">Add</button>
+        </div>
     </div>
     <script>
         const electron = require('electron')

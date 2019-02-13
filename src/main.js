@@ -1,6 +1,7 @@
 const electron = require('electron')
 const url = require('url')
 const path = require('path')
+const fs = require('fs')
 
 const {app, BrowserWindow, ipcMain, Menu} = electron
 
@@ -62,6 +63,7 @@ app.on('ready', startApp)
 app.on('window-all-closed', closeApp)
 
 // * ipc events/catches
+
 ipcMain.on('new-item', openAddWindow)
 
 ipcMain.on('add', (event, state)=>{
