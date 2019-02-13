@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
-<body>
+<body onload="getItems()">
+    <div class="add">+</div>
     <div class="grid">
         <div class="titlebar">
             <h1>read IT</h1>
@@ -19,25 +20,29 @@
             <h3>Your reading list is below</h3>
         </div>
         <div class="list">
-            <label><div onclick="checkboxClick(event)" class="checkbox"></div><a onclick="linkClick(event)" href="https://www.youtube.com/watch?v=Mus_vwhTCq0" target="_blank">JavaScript Pro Tips - Code This, NOT That</a></label>
+            <div class="item">
+                <div onclick="checkboxClick(event)" class="checkbox"></div>
+                <a onclick="linkClick(event)" href="https://github.com/The24thDS" target="_blank">
+                    You might want to checkout my GitHub page
+                </a>
+            </div>
+            <div class="item">
+                    <div onclick="checkboxClick(event)" class="checkbox"></div>
+                    <a>and leave a star on this project</a>
+                </div>
         </div>
     </div>
     <script>
         const electron = require('electron')
         const {ipcRenderer, shell} = electron
-        const close = document.querySelector('.fa-times')
-        const minimize = document.querySelector('.fa-window-minimize')
+        const PouchDB = require('pouchdb-browser')
         const list = document.querySelector('.list')
+        const add = document.querySelector('.add')
+        const db = new PouchDB('readIT')
         if(!list.childElementCount)
         {
             list.innerHTML = 'Looks like you have nothing to read'
         }
-        close.addEventListener('click', ()=>{
-            ipcRenderer.send('close')
-        })
-        minimize.addEventListener('click', ()=>{
-            ipcRenderer.send('minimize')
-        })
         const linkClick = event => {
             event.preventDefault()
             shell.openExternal(event.target.attributes.href.value)
@@ -48,7 +53,61 @@
                 opacity = 1
             event.target.parentElement.style = `opacity: ${opacity}`
             event.target.classList.toggle('checked')
+            window.setTimeout(()=>{
+                event.target.parentElement.remove()
+            },2000)
         }
+        add.addEventListener('click', ()=>{
+            ipcRenderer.send('new-item')
+        })
+
+        const insertInPage = (item) => {
+            let itemHTML = ``;
+            if(item.url)
+                itemHTML = `
+                    <div class="item" data-id="${item._id}">
+                        <div onclick="checkboxClick(event)" class="checkbox ${item.completed?'checked':''}"></div>
+                        <a onclick="linkClick(event)" href="${item.url}" target="_blank">
+                            ${item.name}
+                        </a>
+                    </div>
+                `
+            else
+                itemHTML = `
+                    <div class="item" data-id="${item._id}">
+                        <div onclick="checkboxClick(event)" class="checkbox ${item.completed?'checked':''}"></div>
+                        <a>
+                            ${item.name}
+                        </a>
+                    </div>
+                `
+            list.innerHTML += itemHTML
+        }
+        const addItem = (data) => {
+            var item = {
+                _id: new Date().toISOString(),
+                name: data.name,
+                url: data.url,
+                completed: false
+            };
+            db.put(item, (err, result) => {
+                if (!err) {
+                    insertInPage(item)
+                }
+            })
+        }
+        const getItems = () => {
+            db.allDocs({include_docs: true, descending: true}, (err, doc) => {
+                console.log(doc.rows);
+                doc.rows.forEach(element => {
+                    insertInPage(element.doc)
+                });
+            });
+        }
+        ipcRenderer.on('adding', (event, state)=>{
+            addItem(state)
+        })
+        require('./js/handleWindowControls.js')
     </script>
 </body>
 </html>

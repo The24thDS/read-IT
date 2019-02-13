@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>read IT</title>
+    <link rel="stylesheet" href="../css/newItem.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+<body>
+    <div class="grid">
+        <div class="titlebar">
+            <h1>read IT - Add new item</h1>
+            <div class="actions">
+                <i class="far fa-window-minimize"></i>
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <p>item name</p>
+        <input type="text" name="name">
+        <p>url <span>(optional)</span></p>
+        <input type="text" name="url">
+        <button type="submit">Add</button>
+    </div>
+    <script>
+        const electron = require('electron')
+        const {ipcRenderer, shell} = electron
+        const itemName = document.querySelector('input[name="name"]')
+        const itemUrl = document.querySelector('input[name="url"]')
+        const submit = document.querySelector('button')
+        let state = {
+            name: '',
+            url: ''
+        }
+        const setState = (newState) => {
+            state = {...state, ...newState}
+        }
+        itemName.addEventListener('keyup', (event)=>{
+            setState({name: event.target.value})
+        })
+        itemUrl.addEventListener('keyup', (event)=>{
+            setState({url: event.target.value})
+        })
+        submit.addEventListener('click', ()=>{
+            if(state.name.length)
+                ipcRenderer.send('add', state)
+            //TODO: return error
+        })
+        require('./js/handleWindowControls.js')
+    </script>
+</body>
+</html>

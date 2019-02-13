@@ -1,71 +1,20 @@
-@font-face{
-    font-family: 'Fira';
-    src: url('../fonts/FiraSans-Regular.ttf')
-}
+@import 'global.css';
 
-* {
-    margin: 0
-}
-
-:root{
-    --main-bg: #AEF78E;
-    --secondary-bg: #66A182;
-    --main-text: #2E4057;
-    --secondary-text: rgba(50, 55, 61, 0.5);
-    --additional-text: rgba(46, 64, 87, 0.8);
-    --input-bg: #DBFFDE;
-    --form-btn-bg: #3423A6;
-    --checkbox-bg: #A6C3E6;
-    --checkbox-done: #24E451;
-    --background-text: rgba(50, 55, 61, 0.2);
-    --new-btn-bg: rgba(219, 255, 222, 0.8);
-}
-
-body {
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    font-family: 'Fira', sans-serif;
-    background-image: url('../images/background.svg');
-    background-size: cover;
-    -webkit-user-select: none;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr;
-}
-
-.titlebar{
-    height: 25px;
-    font-size: 8px;
-    display: grid;
-    align-items: center;
-    grid-template-columns: 1fr auto;
-    background-color: var(--secondary-bg);
-    z-index: 2;
-}
-.titlebar h1{
-    margin: 0;
-    -webkit-app-region: drag;
-    padding-left: 10px;
-    color: var(--form-btn-bg)
-}
-.titlebar .actions{
-    font-size: 15px;
+.add{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: var(--main-bg);
+    color: var(--form-btn-bg);
+    bottom: 10px;
+    right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.titlebar .actions i{
-    padding: 5px 8px;
+    font-size: 50px;
+    border-radius: 50%;
+    box-shadow: 1px 1px 6px black;
     cursor: pointer;
-}
-.titlebar .actions i:first-child:hover{
-    background: whitesmoke
-}
-.titlebar .actions i:last-child:hover{
-    background: red
 }
 
 .greetings {
@@ -95,7 +44,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
-.list label{
+.list .item{
     width: 80%;
     background-color: var(--main-bg);
     height: 40px;
@@ -105,6 +54,7 @@ body {
     align-items: center;
     color: var(--main-text);
     font-size: 14px;
+    margin: 5px 0;
 }
 .list .checkbox{
     width: 20px;

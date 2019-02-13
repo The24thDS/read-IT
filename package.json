@@ -8,7 +8,9 @@
   },
   "author": "David Sima",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "pouchdb-browser": "^7.0.0"
+  },
   "devDependencies": {
     "electron": "^4.0.4"
   }
